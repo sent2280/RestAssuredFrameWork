@@ -18,5 +18,31 @@ public class RandomValueGenerator {
 		String age = RandomStringUtils.randomNumeric(2);
 		return age;
 	}
+	
+	public static String getFirstName() {
+		String generatedString = RandomStringUtils.randomAlphabetic(1);
+		return ("John"+generatedString);
+	}
+
+	public static String getLastName() {
+		String generatedString = RandomStringUtils.randomAlphabetic(1);
+		return ("Kenedy"+generatedString);
+	}
+	
+	public static String getUserName() {
+		String generatedString = RandomStringUtils.randomAlphabetic(3);
+		return ("John"+generatedString);
+	}
+	
+	public static String getPassword() {
+		String generatedString = RandomStringUtils.randomAlphabetic(3);
+		return ("John"+generatedString);
+	}
+	
+	public static String getEmail() {
+		String generatedString = RandomStringUtils.randomAlphabetic(3);
+		return (generatedString+"gmail.com");
+	}
+	
 
 }
