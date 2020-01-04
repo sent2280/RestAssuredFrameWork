@@ -39,5 +39,4 @@ public class TestCase3_PutRequest extends TestBase{
 		then().
 				statusCode(200).log().all();
 	}
-	
 }
