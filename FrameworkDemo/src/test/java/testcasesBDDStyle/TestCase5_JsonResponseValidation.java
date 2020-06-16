@@ -7,12 +7,12 @@ import com.aventstack.extentreports.gherkin.model.Then;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import wrappers.TestBase;
+import hooks.hooks;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestCase5_JsonResponseValidation extends TestBase {
+public class TestCase5_JsonResponseValidation extends hooks {
 	
 	// Single parameter validation
 	// Since return type is HTML (Other than Json), So passing json path directly to body will not work
@@ -50,13 +50,16 @@ public class TestCase5_JsonResponseValidation extends TestBase {
 	
 	// Optimized approach
 	
-	@Test
+	//@Test
 		public void jsonValidationTestwhenReturnContentTypeIsNotJson_InSingleStep() {
 		
 			when()
 				.get("http://dummy.restapiexample.com/api/v1/employees")
 			.then()
 				.statusCode(200)
-				.extract().jsonPath().get("[0].id").equals("1");
+				.log().body()
+				.extract().jsonPath().get("data[0].id").equals("1");
 		}
+		
+		
 }

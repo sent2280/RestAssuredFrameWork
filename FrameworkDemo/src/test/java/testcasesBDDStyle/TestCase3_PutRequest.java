@@ -11,9 +11,9 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 import utils.RandomValueGenerator;
-import wrappers.TestBase;
+import hooks.hooks;
 
-public class TestCase3_PutRequest extends TestBase{
+public class TestCase3_PutRequest extends hooks{
 	
 	public static HashMap map = new HashMap();
 

@@ -5,11 +5,11 @@ import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import wrappers.TestBase;
+import hooks.hooks;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class TestCase4_DeleteRequest extends TestBase {
+public class TestCase4_DeleteRequest extends hooks {
 	
 	@Test
 	public void deleteRequest() {

@@ -11,18 +11,17 @@ import io.restassured.path.json.JsonPath;
 import utils.RandomValueGenerator;
 import wrappers.TestBase;
 
-public class TestCase3_CreateEmployeeRecord extends TestBase {
+public class TestCase4_UpdateEmployeeRecord extends TestBase {
 	
 	 private String empName = RandomValueGenerator.getEmpName();
 	 private String salary = RandomValueGenerator.getSalary();
 	 private String age = RandomValueGenerator.getAge();
 	
 	
-	@Test()
-	public void createEmployee() throws InterruptedException {
+	@Test(description = "Update an existing employee")
+	public void updateEmployee() throws InterruptedException {
 	
-		logger.info("TestCase3: Create employee started...");
-		RestAssured.baseURI = baseURIGlobal;
+		logger.info("TestCase4: update employee record started...");
 		httpRequest = RestAssured.given();
 		
 		// Creating request payload
@@ -35,11 +34,11 @@ public class TestCase3_CreateEmployeeRecord extends TestBase {
 		httpRequest.header("Content-Type", "application/json");
 		httpRequest.body(jsonObject.toJSONString());
 		
-		response = httpRequest.request(Method.POST,"/employee/" + empID);
+		response = httpRequest.request(Method.PUT,"/update/" + 3);
 		
 		// logger.info("printing response body" + response.getBody().asString());
 		
-		
+		logger.info("response = " + response.asString());
 		logger.info("Validating statusCode ...");
 		int statusCode = response.getStatusCode();
 		Assert.assertEquals(statusCode, 200);
@@ -50,18 +49,24 @@ public class TestCase3_CreateEmployeeRecord extends TestBase {
 			
 		logger.info("Validating content type...");
 		String contentType = response.header("Content-Type");
-		Assert.assertEquals(contentType,"text/html; charset=UTF-8");
+		//Assert.assertEquals(contentType,"text/html; charset=UTF-8");
+		Assert.assertEquals(contentType, "application/json;charset=utf-8");
 		
 		logger.info("Validating server type...");
 		String server = response.header("Server");
 		Assert.assertEquals(server,"nginx/1.16.0");
 		
 		
-		logger.info("Validating employee ID...");
-		JsonPath jsonPath = response.jsonPath();
-		Assert.assertEquals(jsonPath.get("id"), empID);
+		logger.info("Validating response body ...");
+		JsonPath jsonPath = response.jsonPath();	
+		Assert.assertNotNull(jsonPath.get("name"));
+		Assert.assertNotNull(jsonPath.get("salary"));
+		Assert.assertNotNull(jsonPath.get("age"));
+		logger.info("Validating.. name, salary and age.. " + jsonPath.get("name") + " " + jsonPath.get("salary") + " " + 
+		jsonPath.get("age"));
 		
-		logger.info("TestCase3: Create employee Completed ...");
+		
+		logger.info("TestCase4: update employee record Completed ...");
 		
 	}
 }

@@ -20,7 +20,6 @@ public class TestCase5_DeleteEmployeeRecord extends TestBase {
 	@BeforeMethod()
 	public void getEmpID() {
 		logger.info("TestCase5: delete employee record pre-condition started...");
-		RestAssured.baseURI = baseURIGlobal;
 		httpRequest = RestAssured.given();
 		response = httpRequest.request(Method.GET,"/employees");
 		JsonPath jsonPath = response.jsonPath();
@@ -28,7 +27,7 @@ public class TestCase5_DeleteEmployeeRecord extends TestBase {
 		logger.info("emp id processing is " + empID);
 	}
 	
-	@Test()
+	@Test(description = "delete an employee")
 	public void deleteEmployee() throws InterruptedException {
 	
 		logger.info("TestCase5: employee record deletion started...");
@@ -50,7 +49,8 @@ public class TestCase5_DeleteEmployeeRecord extends TestBase {
 			
 		logger.info("Validating content type...");
 		String contentType = response.header("Content-Type");
-		Assert.assertEquals(contentType,"text/html; charset=UTF-8");
+		//Assert.assertEquals(contentType,"text/html; charset=UTF-8");
+		Assert.assertEquals(contentType, "application/json;charset=utf-8");
 		
 		logger.info("Validating server type...");
 		String server = response.header("Server");

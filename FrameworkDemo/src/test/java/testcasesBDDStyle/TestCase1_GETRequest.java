@@ -25,8 +25,7 @@ public class TestCase1_GETRequest {
 	
 	@Test
 	public void getWeatherReportMultipleValidation() {
-		
-		
+			
 		when()
 			.get("http://restapi.demoqa.com/utilities/weather/city/Hyderabad")
 		.then()

@@ -1,4 +1,4 @@
-package wrappers;
+package testbase;
 
 import org.testng.annotations.AfterMethod;
 import java.io.File;
@@ -24,7 +24,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
-import hooks.hooks;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -32,20 +31,122 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestLogSpecification;
 import io.restassured.specification.RequestSpecification;
 import reports.ExtentReport;
+//import net.minidev.json.JSONObject;
 import reports.HTMLDetailReportGenerator;
 import reports.HTMLSummaryReportGenerator;
 import utils.FileUtil;
 import utils.JSONProcesser;
 
-public class TestBase extends hooks
+public class TestBase 
 {
+	public static RequestSpecification httpRequest;
+	public static Response response = null;
+	public String empID = "2";
+	public String baseURIGlobal = null;
+	public Properties log4jProperties = null;
+	public Properties testProjectProperties = null;
+	//public ExtentReport extentReport = new ExtentReport();
+	
+	public static Logger logger;
+	
+	@BeforeSuite()
+	@Parameters("env")
+	public void setup(String env) {
+		log4jProperties = new Properties();
+		testProjectProperties = new Properties();
+		
+		try {
+			log4jProperties.load(new FileReader(System.getProperty("user.dir") + "/config/log4j.properties"));
+			testProjectProperties.load(new FileReader(System.getProperty("user.dir") + "./config/testproject.properties"));
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		logger = Logger.getLogger("EmployeesRestAPI");
+		PropertyConfigurator.configure(log4jProperties);
+		logger.setLevel(Level.DEBUG);
+		
+		//String mEnv = System.getProperty("env");
+		//String mEnv = "QA";
+		//RestAssured.baseURI = getURL(mEnv);
+		RestAssured.baseURI = getURL(env);
+		System.out.println("Environment variable is " + env);
+		System.out.println("Base URL is " + getURL(env));
+	}
+	
+	@AfterSuite
+	public void tearDown() throws IOException {
+		logger.info("Executing After Suite");
+		HTMLSummaryReportGenerator htmlReportGenerator =  new HTMLSummaryReportGenerator();
+		htmlReportGenerator.createSummaryReport();
+		
+		HTMLDetailReportGenerator  htmlDetailReportGenerator = new HTMLDetailReportGenerator();
+		htmlDetailReportGenerator.createDetailReport();
+		
+	}
+	
+	@AfterMethod
+	public void storeJsonToOutputFolder(ITestResult result,ITestContext ctx) {
+	
+		FileWriter file = null;
+		String methodName = result.getMethod().getMethodName();
+		String suiteName = ctx.getCurrentXmlTest().getSuite().getName();
+		
+		String filePath = "./output/JsonOutput/" + suiteName;
+		File fileObj = new File(filePath);
+		
+		if(!fileObj.exists()) {
+			System.out.println("Ouput json directory not exist.. Creating new directory...");
+			fileObj.mkdir();
+		}else {
+			System.out.println("Ouput json directory already exists");
+		}
+		
+		if(response.getContentType().contains("application/json")) {
+			FileUtil fileUtilObj = new FileUtil();
+			file = fileUtilObj.createFile(file, filePath + "/" + methodName + ".json");
+			fileUtilObj.flushToFile(file, response.getBody().asString());
+			fileUtilObj.closeFile(file);
+		}
+		
+	}
+	
+	private String getURL(String env) {
+	
+		switch(env) {		
+		case "QA":
+			return testProjectProperties.getProperty("testProject.QA");
+		case "Prod":
+			return testProjectProperties.getProperty("testProject.Prod");
+		case "UAT":
+			return testProjectProperties.getProperty("testProject.UAT");
+		default:
+			System.out.println("Please provide proper environment value.. It should be one among QA/Prod/UAT");
+			return null;
+		}
+		
+	}
+	
+	/*
+	public static HashMap<String, String> headers;
+
+	public static HashMap<String, String> generateHeader() throws IOException {
+		String filePath=System.getProperty("user.dir") +Constants.RESOURCE_DIR+"cookie.txt";
+		String cookie=JsonComponent.readTextFile(filePath);
+		headers = new HashMap<String, String>();
+		headers.put("Content-Type", "application/json");
+		headers.put("cookie","connect.sid="+cookie);
+		return headers;
+	} */
 	
 	public static RequestSpecification setLogs() {
 		//RestAssured.authentication = RestAssured.basic(Constants.AUTH_USERNAME, Constants.AUTH_PASSWORD);
 		RestAssured.useRelaxedHTTPSValidation();
 		RequestLogSpecification log = RestAssured.given().log();
-		//return log.all().contentType(getContentType());
-		return log.all();
+		return log.all().contentType(getContentType());
 	}
 
 	public static Response get(String URL) {
@@ -54,24 +155,13 @@ public class TestBase extends hooks
 					.get(URL);
 	}
 
-	public static Response getRequestWithPathParams(Map<String, String> parametersMap,Map<String, String> headers,String URL) {
+	public static Response getRequestWithPathParams(Map<String, String>parametersMap,Map<String, String> headers,String URL) {
 		return setLogs().params(parametersMap)
 						.when()
 						.headers(headers)
 						.get(URL);
 	}
-	
-	public static Response getRequestWithParamsAndURL(Map<String, String>parametersMap,String URL) {
-		return setLogs().params(parametersMap)
-						.when()
-						.get(URL);
-	}
 
-	public static Response getRequestWithOnlyParams(Map<String, String>parametersMap) {
-		return setLogs().params(parametersMap)
-						.when()
-						.get();
-	}
 	public static Response getWithHeader(Map<String, String> headers, String URL) {
 
 		return setLogs()
@@ -161,31 +251,6 @@ public class TestBase extends hooks
 		return ContentType.JSON;
 
 	} 
-	
-	public void storeJsonToOutputFolder(ITestResult result,ITestContext ctx) {
-		
-		FileWriter file = null;
-		String methodName = result.getMethod().getMethodName();
-		String suiteName = ctx.getCurrentXmlTest().getSuite().getName();
-		
-		String filePath = "./output/JsonOutput/" + suiteName;
-		File fileObj = new File(filePath);
-		
-		if(!fileObj.exists()) {
-			System.out.println("Ouput json directory not exist.. Creating new directory...");
-			fileObj.mkdir();
-		}else {
-			System.out.println("Ouput json directory already exists");
-		}
-		
-		if(response.getContentType().contains("application/json")) {
-			FileUtil fileUtilObj = new FileUtil();
-			file = fileUtilObj.createFile(file, filePath + "/" + methodName + ".json");
-			fileUtilObj.flushToFile(file, response.getBody().asString());
-			fileUtilObj.closeFile(file);
-		}
-		
-	}
 
 	/*
 	public static void verifyContentType(Response response, String type){

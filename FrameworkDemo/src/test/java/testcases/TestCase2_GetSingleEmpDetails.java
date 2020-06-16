@@ -1,26 +1,40 @@
 package testcases;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import hooks.hooks;
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import wrappers.TestBase;
+
 
 public class TestCase2_GetSingleEmpDetails extends TestBase {
 	
 	
-	@Test()
+	@Test(description = "Get single employee details")
 	public void getSingleEmployee() throws InterruptedException {
 	
 		logger.info("TestCase2 Get Single employee details started...");
-		RestAssured.baseURI = baseURIGlobal;
-		httpRequest = RestAssured.given();
-		response = httpRequest.request(Method.GET,"/employee/" + empID);
 		
+		//Dummy request for cookie generation
 		
+		Map<String,String> responseCookie = RestAssured.given().get("employee/1").cookies();
+		
+	   /* response = RestAssured.given().cookies(responseCookie).get("employees");
+	    response.prettyPrint();
+		String empID = response.jsonPath().get("data[0].id");
+		System.out.println("empID " + empID); */
+		
+	    response = RestAssured.given().cookies(responseCookie).log().all().get("employee/" + empID);
+	    response.prettyPrint();
+	    
 		logger.info("Validating statusCode ...");
 		int statusCode = response.getStatusCode();
 		Assert.assertEquals(statusCode, 200);
@@ -31,7 +45,7 @@ public class TestCase2_GetSingleEmpDetails extends TestBase {
 			
 		logger.info("Validating content type...");
 		String contentType = response.header("Content-Type");
-		Assert.assertEquals(contentType,"text/html; charset=UTF-8");
+		Assert.assertEquals(contentType, "application/json;charset=utf-8");
 		
 		logger.info("Validating server type...");
 		String server = response.header("Server");
@@ -43,7 +57,7 @@ public class TestCase2_GetSingleEmpDetails extends TestBase {
 		
 		logger.info("Validating employee ID...");
 		JsonPath jsonPath = response.jsonPath();
-		Assert.assertEquals(jsonPath.get("id"), empID);
+		Assert.assertEquals(jsonPath.get("data.id"), empID);
 		
 		logger.info("TestCase2 Get Single employee details Completed ...");
 		
