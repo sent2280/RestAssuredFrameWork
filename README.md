@@ -1,11 +1,11 @@
-## RestAssuredFrameWork
+# RestAssuredFrameWork
 
 ## Introduction
 
-    This doc give information about, how to install RestAssured frameWork. For more information about framework component,
-    Reports and capabilities, please visit the wiki page
+    This document gives information about how to install RestAssured frameWork and setup. For more information about framework 
+    components,API, Reports and Capabilities, please visit the [wiki page](https://github.com/sent2280/RestAssuredFrameWork/wiki)
     
-  ## Prerequisite
+## Prerequisite
   
   
   
