@@ -82,7 +82,7 @@ With this all necessory dependencies are linked to project. In next step, we wil
 
 ## Configuration
 
-Framework uses **Log4j** to display logs in console and also to store the logs in file. Different environment support is possible, So User can be able to configure different urls for QA, UAT and Prod.
+Framework uses **Log4j** to display logs in console and to store in file. Different environment support is possible, So User can be able to configure different urls for QA, UAT and Prod. For more details about log4j please visit following [doc](https://logging.apache.org/log4j/1.2/).
    
 For log4g and multi environment support, user has to create following files:
 
@@ -90,8 +90,31 @@ For log4g and multi environment support, user has to create following files:
 2. Create **log4j.properties** file inside config folder
 3. Add the following configuration into log4j property file
 
+```js
+log4j.rootLogger=INFO, file, stdout
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=${user.dir}/output/logs/restAPI.log
+log4j.appender.file.MaxFileSize=10MB
+log4j.appender.file.MaxBackupIndex=10
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+log4j.appender.rollingFile.append=false
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+```
+4. Create **testproject.properties** file inside config
+5. Add the following configuration into testproject property file
 
-   
+```js
+testProject.QA = http://dummy.restapiexample.com/api/v1
+testProject.Prod = http://dummy-prod.restapiexample.com/api/v1
+testProject.UAT = http://dummy-uat.restapiexample.com/api/v1
+```
+
+This url will be taken by the framework automatically. Overriding this at runtime also possible, Which will be disussed in next section.
+
 
 ## First script
 
