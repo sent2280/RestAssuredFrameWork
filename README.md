@@ -29,3 +29,6 @@ pom.xml file to download the framework.
 
 3. if you are new to maven, Then visit this link to learn [how to install and create maven project](https://www.toolsqa.com/java/maven/create-new-maven-project-eclipse/).
 After that do the step 1 and 2.
+
+## Reference
+Visit the [wiki page](https://github.com/sent2280/RestAssuredFrameWork/wiki) for complete details about this framework.
