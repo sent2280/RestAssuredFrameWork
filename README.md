@@ -37,10 +37,9 @@ After that do the step 1 and 2.
     3. Json simple
     4. hamcrest
     
-    Below are the dependencies has to be added:
+ Below are the dependencies has to be added:
     
-``` xml
-       
+``` xml     
 <dependency>
     <groupId>io.rest-assured</groupId>
     <artifactId>rest-assured</artifactId>
@@ -79,8 +78,20 @@ After that do the step 1 and 2.
 </dependency>
 ```
 
+With this all necessory dependencies are linked to project. In next step, we will discuss about configurations.
 
 ## Configuration
+
+Framework uses **Log4j** to display logs in console and also to store the logs in file. Different environment support is possible, So User can be able to configure different urls for QA, UAT and Prod.
+   
+For log4g and multi environment support, user has to create following files:
+
+1. Create **config** folder under project
+2. Create **log4j.properties** file inside config folder
+3. Add the following configuration into log4j property file
+
+
+   
 
 ## First script
 
