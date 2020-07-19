@@ -118,7 +118,8 @@ This url will be taken by the framework automatically. Overriding this at runtim
 
 ## First script
 
-For demonstarion purpose BestBuy api is been used. Bestbuy is an retailer store in US. It exposes store details through API. To generate the token for this api, other api information, etc.. please visit [developers bestbuy](https://developer.bestbuy.com/). But stil token geneartion is not mandatory as already its been generated and used in the code.
+For demonstarion purpose BestBuy api is been used. Bestbuy is an retailer store in US. It exposes store details through API. To generate the token for this api, other api information, etc.. please visit [developers bestbuy](https://developer.bestbuy.com/). But still token geneartion is not mandatory as user can use the same token provided in the code snippet below.
+
 
 ```java
 package BestbuyTest;
@@ -153,12 +154,9 @@ public class GetAllStores extends TestBase { 		// Line 11
 
 Create a TestNG class and extend the TestBase class from framework as shown in Line 11. All the framework capabilities like common wrappers, Listners, Reports, hooks etc. are exposed to project through this class. 
 
-Configure the base URL "https://api.bestbuy.com/v1" in testproject.properties file. If you already followed my configuration section, Then this is not required. From here framework will take the base url automatically. But if you have muliple base URL, Then overriding this base URL at runtime also possible. In that case just uncomment Line 16.
+Configure the base URL "https://api.bestbuy.com/v1" in testproject.properties file. If you already followed my configuration section, Then this is not required. Framework will take this baseURL automatically. If you want to test against multiple base URL, Then just uncomment Line 16. This will override the base URL defined on testproject properties file.
 
-Added headers to Map (api key and output format). In Line 20 **getRequestWithParamsAndURL** method used from framework. This method internally calls the GET request with headers
-and the path URL provided.
-
-In our case, it calls "https://api.bestbuy.com/v1/stores" endpoint along with api key and format as json. Framework provides method for all the generic operation like (GET,POST,PUT,DELETE). To understand more about this, check the wiki page.
+Create hasmap and add headers to Map (api key and output format). In Line 20 **getRequestWithParamsAndURL** method used from framework. This method internally calls the GET request with headers and the path URL provided. In our case, it calls "https://api.bestbuy.com/v1/stores" endpoint along with api key and format as json. Framework provides method for all the generic operation like (GET,POST,PUT,DELETE). To understand more about this, check the wiki page.
 
 In Line 22, total stores is been extracted from the response. This value is been compared with expected value in Line 24. Hamcrest library is used for assertion here, But user shall use any library of their choice for assertion.
 
