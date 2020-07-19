@@ -1,12 +1,12 @@
 # RestAssuredFrameWork
 
-[1.Introduction](#introduction)
-[2.Prerequisites](#prerequisites)
-[3.Installation](#installation)
-[4.Configuration](#configuration)
-[5.First script](#first-script)
-[6.Report](#report)
-[7.Reference](#reference)
+1.[Introduction](#introduction)
+2.[Prerequisites](#prerequisites)
+3.[Installation](#installation)
+4.[Configuration](#configuration)
+5.[First script](#first-script)
+6.[Report](#report)
+7.[Reference](#reference)
 
 
 
