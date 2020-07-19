@@ -108,15 +108,59 @@ log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1
 5. Add the following configuration into testproject property file
 
 ```js
-testProject.QA = http://dummy.restapiexample.com/api/v1
-testProject.Prod = http://dummy-prod.restapiexample.com/api/v1
-testProject.UAT = http://dummy-uat.restapiexample.com/api/v1
+testProject.QA = https://api.bestbuy.com/v1
+testProject.Prod = https://api-prod.bestbuy.com/v1
+testProject.UAT = https://api-uat.bestbuy.com/v1
 ```
 
 This url will be taken by the framework automatically. Overriding this at runtime also possible, Which will be disussed in next section.
 
 
 ## First script
+
+For demonstarion purpose BestBuy api is been used. Bestbuy is an retailer store in US. It exposes store details through API. To generate the token for this api, other api information, etc.. please visit [developers bestbuy](https://developer.bestbuy.com/). But stil token geneartion is not mandatory as already its been generated and used in the code.
+
+```java
+package BestbuyTest;
+
+import java.util.HashMap;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import wrappers.TestBase;
+import static org.hamcrest.MatcherAssert.assertThat; 
+import static org.hamcrest.Matchers.*;
+
+public class GetAllStores extends TestBase { 		// Line 11
+	
+	@Test(description = "Get all the stores of bestbuy")  // Line 13
+	public void getAllStores() {
+		
+		// RestAssured.baseURI = "https://api.bestbuy.com/v1"; // Line 16
+		HashMap<String, String> paramsMap = new HashMap();
+		paramsMap.put("apiKey", "qUh3qMK14GdwAs9bO59QRSCJ");
+		paramsMap.put("format", "json");
+		response = getRequestWithParamsAndURL(paramsMap,"stores");  // Line 20
+		
+		int totalStores = response.jsonPath().get("total");  // Line 22
+		System.out.println("totalStores = " + totalStores);
+		assertThat(totalStores,equalTo(1272));   // Line 24
+		
+	}
+
+}
+```
+
+Create a TestNG class and extend the TestBase class from framework as shown in Line 11. All the framework capabilities like common wrappers, Listners, Reports, hooks etc. are exposed to project through this class. 
+
+Configure the base URL "https://api.bestbuy.com/v1" in testproject.properties file. If you already followed my configuration section, Then this is not required. From here framework will take the base url automatically. But if you have muliple base URL, Then overriding this base URL at runtime also possible. In that case just uncomment Line 16.
+
+Added headers to Map (api key and output format). In Line 20 **getRequestWithParamsAndURL** method used from framework. This method internally calls the GET request with headers
+and the path URL provided.
+
+In our case, it calls "https://api.bestbuy.com/v1/stores" endpoint along with api key and format as json. Framework provides method for all the generic operation like (GET,POST,PUT,DELETE). To understand more about this, check the wiki page.
+
+In Line 22, total stores is been extracted from the response. This value is been compared with expected value in Line 24. Hamcrest library is used for assertion here, But user shall use any library of their choice for assertion.
 
 
 ## Reference
