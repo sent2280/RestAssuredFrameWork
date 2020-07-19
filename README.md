@@ -162,5 +162,17 @@ In Line 22, total stores is been extracted from the response. This value is been
 
 ***Note: Extending base class(Line 11) and storing the response (Line 20) is mandatory. This response will be used for reporting purpose in framework.***
 
+## Report
+
+Reports were stored in **output** folder. It provides following report:
+
+1. Customized HTML Report
+2. Extent Report
+3. Json Report
+4. Emailabe Report (To run in jenkins and send the report)
+
+
+
+
 ## Reference
 Visit the [wiki page](https://github.com/sent2280/RestAssuredFrameWork/wiki) for complete details about this framework.
