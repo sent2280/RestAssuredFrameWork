@@ -1,6 +1,7 @@
 # RestAssuredFrameWork
 
 
+
 1.[Introduction](#introduction)  
 2.[Prerequisites](#prerequisites)  
 3.[Installation](#installation)  
@@ -183,6 +184,13 @@ Reports were stored in **output** folder. It provides following report:
 4. Emailabe Report (To run in jenkins and send the report)
 
 
+**Customized HTML Report:**
+
+!https://github.com/sent2280/RestAssuredFrameWork/blob/master/FrameworkDemo/snap/CustomizedReport.PNG
+
+**Extent Report:**
+
+!https://github.com/sent2280/RestAssuredFrameWork/blob/master/FrameworkDemo/snap/ExtentReport.PNG
 
 
 ## Reference
