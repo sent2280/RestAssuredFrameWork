@@ -23,28 +23,6 @@ public class HTMLSummaryReportGenerator {
 		
 		System.out.println("Creating summary report...");
 		
-		 String summaryTemplateHeader ="<html>"
-		 		+ "<head>"
-			    + "</head>"
-		 		+ "<body>"
-			    + "<div>"
-				+ "<h1>Employee Details Execution Report</h1>"
-				+ "<h2>Summary:</h2>"
-				+ "</div>";
-		 
-		String tableHeader =  "<table width='75%' border='1'>"
-								 + "<tr>"
-								 + "<th>" + "Test case name" + "</th>"
-								 + "<th>" + "Short description" + "</th>" 
-								 + "<th>" + "Test result" + "</th>"
-								 + "<th>" + "Start time" + "</th>"
-								 + "<th>" + "End time" + "</th>"
-								 +"</tr>";
-		
-				 
-		 String summaryTemplateFooter = "</body>"
-		 								+ "</html>";
-		 
 		 JSONProcesser jsonProcesser = new JSONProcesser("./output/result.json");
 		 JSONArray jArray = jsonProcesser.getJsonArrayFromResult("Test cases");
 		 
@@ -58,6 +36,30 @@ public class HTMLSummaryReportGenerator {
 		 int totalTestCases = jArray.size();
 		 int totalPass = getPassCount(jArray);
 		 int totalFail = getFailCount(jArray);
+		
+		 String summaryTemplateHeader ="<html>"
+		 		+ "<head>"
+			    + "</head>"
+		 		+ "<body>"
+			    + "<div>"
+				+ "<h1> "+testSuiteName +  " Execution Report</h1>"
+				+ "<h2>Summary:</h2>"
+				+ "</div>";
+		 
+		String tableHeader =  "<table width='75%' border='1'>"
+								 + "<tr>"
+								 + "<th>" + "Test case" + "</th>"
+								 + "<th>" + "Short description" + "</th>" 
+								 + "<th>" + "Test result" + "</th>"
+								 + "<th>" + "Start time" + "</th>"
+								 + "<th>" + "End time" + "</th>"
+								 +"</tr>";
+		
+				 
+		 String summaryTemplateFooter = "</body>"
+		 								+ "</html>";
+		 
+
 		 
 		 String summaryInfoTemplate = "<p>"
 				 					+ "Test Suite name : " + testSuiteName + "<br>"

@@ -9,8 +9,8 @@ public class StyleSheet {
 				+ "th {background-color: grey; color: black} "
 				+ "body {background-color: #fefbd8 } "
 				+ "p.headerRow { background-color: lightblue} "
-				+ "p.passRow { background-color: lightgreen } "
-				+ "p.failRow {background-color: lightcoral}"
+			//	+ "p.passRow { background-color: lightgreen } "
+			//	+ "p.failRow {background-color: lightcoral}"
 				+ "</style>";
 		return styleTemplate;
 	}

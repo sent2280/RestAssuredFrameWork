@@ -10,11 +10,11 @@
 
   <test name="Test employee Apis">
     <classes>
-    <!--class name="testcases.TestCase1_GetRequest"/-->
+    <class name="testcases.TestCase1_GetRequest"/>
     <class name="testcases.TestCase2_GetSingleEmpDetails"/>
-    <!--class name="testcases.TestCase3_CreateEmployeeRecord"/>
+    <class name="testcases.TestCase3_CreateEmployeeRecord"/>
     <class name="testcases.TestCase4_UpdateEmployeeRecord"/>
-    <class name="testcases.TestCase5_DeleteEmployeeRecord"/-->  
+    <class name="testcases.TestCase5_DeleteEmployeeRecord"/>  
     </classes>
   </test>
 </suite>

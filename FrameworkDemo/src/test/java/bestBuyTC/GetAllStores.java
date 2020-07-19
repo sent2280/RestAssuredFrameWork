@@ -22,7 +22,6 @@ public class GetAllStores extends TestBase {
 		
 		int totalStores = response.jsonPath().get("total");
 		System.out.println("totalStores = " + totalStores);
-		
 	}
 
 }

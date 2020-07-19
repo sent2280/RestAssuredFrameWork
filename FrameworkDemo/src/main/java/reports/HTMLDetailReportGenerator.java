@@ -31,6 +31,20 @@ public class HTMLDetailReportGenerator {
 		StyleSheet StyleSheet = new StyleSheet();
 		String styleTemplate = StyleSheet.getStyleTemplate();
 		
+		 JSONProcesser jsonProcesser = new JSONProcesser("./output/result.json");
+		 JSONArray jArray = jsonProcesser.getJsonArrayFromResult("Test cases");
+		 
+		 JSONObject jObject = jsonProcesser.getJsonObject();
+		 
+		 String testSuiteName = (String) jObject.get("Test suite name");
+		 String testStartTime = (String) jObject.get("Test start time");
+		 String testEndTime = (String) jObject.get("Test end time");
+		 String totalDuration = (String) jObject.get("Total duration");
+		// String Description = (String) jObject.get("Description");
+		 int totalTestCases = jArray.size();
+		 int totalPass = getPassCount(jArray);
+		 int totalFail = getFailCount(jArray);
+		
 		/* String styleSheetPath = new File("src/main/java/reports/StyleSheet.txt").getAbsolutePath();
 		
 		//InputStream in = getClass().getResourceAsStream("StyleSheet.txt");
@@ -61,7 +75,7 @@ public class HTMLDetailReportGenerator {
 			    + "</head>"
 		 		+ "<body>"
 			    + "<div>"
-				+ "<h1>Employee Details Execution Report</h1>"
+				+ "<h1>" + testSuiteName + " Execution Report</h1>"
 				+ "<h2>Summary:</h2>"
 				+ "</div>";
 		 
@@ -70,27 +84,14 @@ public class HTMLDetailReportGenerator {
 								 + "<th>" + "Sl.No" + "</th>"
 								 + "<th>" + "Short description" + "</th>" 
 								 + "<th>" + "Execution Status" + "</th>"
-								 + "<th>" + "Execution Time" + "</th>"
-								 + "<th>" + "Result" + "</th>"
+								 + "<th>" + "Start Time" + "</th>"
+								 + "<th>" + "End Time" + "</th>"
 								 +"</tr>";
 		
 				 
 		 String summaryTemplateFooter = "</body>"
 		 								+ "</html>";
 		 
-		 JSONProcesser jsonProcesser = new JSONProcesser("./output/result.json");
-		 JSONArray jArray = jsonProcesser.getJsonArrayFromResult("Test cases");
-		 
-		 JSONObject jObject = jsonProcesser.getJsonObject();
-		 
-		 String testSuiteName = (String) jObject.get("Test suite name");
-		 String testStartTime = (String) jObject.get("Test start time");
-		 String testEndTime = (String) jObject.get("Test end time");
-		 String totalDuration = (String) jObject.get("Total duration");
-		// String Description = (String) jObject.get("Description");
-		 int totalTestCases = jArray.size();
-		 int totalPass = getPassCount(jArray);
-		 int totalFail = getFailCount(jArray);
 		 
 		 String summaryInfoTemplate = "<p>"
 				 					+ "Test Suite name : " + testSuiteName + "<br>"
@@ -128,7 +129,8 @@ public class HTMLDetailReportGenerator {
 			
 			if(result.equalsIgnoreCase("PASS")) {
 				summaryTemplateBody = summaryTemplateBody + 
-						 "<tr class=\"passRow\">"
+						// "<tr class=passRow>"
+						"<tr style=\"background-color: lightgreen\">"
 						   + "<td>" + ++counter + "</td>"
 						  + "<td>" + jObj.get("Description") + "</td>"
 						   + "<td>" + jObj.get("Test result") + "</td>"
@@ -141,9 +143,9 @@ public class HTMLDetailReportGenerator {
 				JSONObject jObjFail = (JSONObject)obj;
 				
 					summaryTemplateBody = summaryTemplateBody + 
-							 "<tr class=\"failRow\">"
+							    "<tr style=\"background-color: lightcoral\">"
 							   + "<td>" + ++counter + "</td>"
-							  + "<td>" + jObjFail.get("Description") + "</td>"
+							   + "<td>" + jObjFail.get("Description") + "</td>"
 							   + "<td>" + jObjFail.get("Test result") + "</td>"
 							   + "<td>" + jObjFail.get("Start time") + "</td>"
 							   + "<td>" + jObjFail.get("End Time") + "</td>"
