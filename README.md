@@ -8,7 +8,7 @@
 4.[Configuration](#configuration)  
 5.[First script](#first-script)  
 6.[Report](#report)    
-7.[Reference](#reference)  
+7.[Additional Reference](#additional-reference)  
 
 
 
@@ -199,5 +199,5 @@ Reports were stored in **output** folder. It provides following report:
 ![Extent Report](/FrameworkDemo/snap/ExtentReport.PNG)
 
 
-## Reference
+## Additional Reference
 Visit the [wiki page](https://github.com/sent2280/RestAssuredFrameWork/wiki) for complete details about this framework.
