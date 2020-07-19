@@ -187,12 +187,14 @@ Reports were stored in **output** folder. It provides following report:
 3. Json Report
 4. Emailabe Report (To run in jenkins and send the report)
 
+<span style="font-family:Papyrus; font-size:6em;">**Customized HTML Report:**</span>
 
-**Customized HTML Report:**
 
 ![custom report](/FrameworkDemo/snap/CustomizedReport.PNG)
 
-**Extent Report:**
+
+<span style="font-family:Papyrus; font-size:6em;">**Extent Report:**</span>
+
 
 ![Extent Report](/FrameworkDemo/snap/ExtentReport.PNG)
 
