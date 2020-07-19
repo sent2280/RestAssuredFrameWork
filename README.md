@@ -174,6 +174,10 @@ In Line 22, total stores is been extracted from the response. This value is been
 
 ***Note: Extending base class(Line 11) and storing the response (Line 20) is mandatory. This response will be used for reporting purpose in framework.***
 
+### Running Testcase
+
+	<Yet to add>
+
 ## Report
 
 Reports were stored in **output** folder. It provides following report:
@@ -186,11 +190,11 @@ Reports were stored in **output** folder. It provides following report:
 
 **Customized HTML Report:**
 
-!https://github.com/sent2280/RestAssuredFrameWork/blob/master/FrameworkDemo/snap/CustomizedReport.PNG
+![custom report](/FrameworkDemo/snap/CustomizedReport.PNG)
 
 **Extent Report:**
 
-!https://github.com/sent2280/RestAssuredFrameWork/blob/master/FrameworkDemo/snap/ExtentReport.PNG
+![Extent Report](/FrameworkDemo/snap/ExtentReport.PNG)
 
 
 ## Reference
