@@ -160,7 +160,7 @@ Create hasmap and add headers to Map (api key and output format). In Line 20 **g
 
 In Line 22, total stores is been extracted from the response. This value is been compared with expected value in Line 24. Hamcrest library is used for assertion here, But user shall use any library of their choice for assertion.
 
-Note: Extending base class(Line 11) and storing the response (Line 20) is mandatory. This response will be used for reporting purpose in framework.
+***Note: Extending base class(Line 11) and storing the response (Line 20) is mandatory. This response will be used for reporting purpose in framework.***
 
 ## Reference
 Visit the [wiki page](https://github.com/sent2280/RestAssuredFrameWork/wiki) for complete details about this framework.
